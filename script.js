@@ -18,10 +18,10 @@ function divide(num1, num2) {
     return num1 / num2;
 }
 
-console.log(add(5, 4));
-console.log(subtract(5, 4));
-console.log(multiply(5, 4));
-console.log(divide(5, 4));
+// console.log(add(5, 4));
+// console.log(subtract(5, 4));
+// console.log(multiply(5, 4));
+// console.log(divide(5, 4));
 
 function operate(num1, num2, operator) {
     switch (operator) {
@@ -38,4 +38,4 @@ function operate(num1, num2, operator) {
     }
 }
 
-console.log(operate(3, 4, "+"));
+// console.log(operate(3, 4, "+"));
