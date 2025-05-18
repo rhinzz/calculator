@@ -3,48 +3,59 @@ let numInput1;
 let numInput2;
 let operatorInput;
 
-document.querySelectorAll(".buttonRow button").forEach(button => {
+// Selector Variable
+const buttons = document.querySelectorAll(".buttonRow button");
+const display = document.querySelector(".displayContainer");
+const sum = document.querySelector("#sum");
+const minus = document.querySelector("#subtract");
+const product = document.querySelector("#multiply");
+const division = document.querySelector("#divide");
+const result = document.querySelector("#result");
+const clear = document.querySelector("#clear");
+
+buttons.forEach(button => {
     button.addEventListener("click", e => {
         let value = e.target.value;
-        if (document.querySelector(".displayContainer").textContent === "0") {
-            document.querySelector(".displayContainer").textContent = value;
+        if (display.textContent === "0") {
+            display.textContent = value;
         } else {
-            document.querySelector(".displayContainer").textContent += value;
+            display.textContent += value;
           }
     })
 });
 
-document.querySelector("#sum").addEventListener("click", () => {
-    numInput1 = +document.querySelector(".displayContainer").textContent;
-    operatorInput = document.querySelector("#sum").textContent;
-    document.querySelector(".displayContainer").textContent = null; 
+sum.addEventListener("click", () => {
+    numInput1 = +display.textContent;
+    operatorInput = sum.textContent;
+    display.textContent = null; 
 });
 
-document.querySelector("#subtract").addEventListener("click", () => {
-    numInput1 = +document.querySelector(".displayContainer").textContent;
-    operatorInput = document.querySelector("#subtract").textContent;
-    document.querySelector(".displayContainer").textContent = null;
+minus.addEventListener("click", () => {
+    numInput1 = +display.textContent;
+    operatorInput = minus.textContent;
+    display.textContent = null;
 });
 
-document.querySelector("#multiply").addEventListener("click", () => {
-    numInput1 = +document.querySelector(".displayContainer").textContent;
-    operatorInput = document.querySelector("#multiply").textContent;
-    document.querySelector(".displayContainer").textContent = null;
+product.addEventListener("click", () => {
+    numInput1 = +display.textContent;
+    operatorInput = product.textContent;
+    display.textContent = null;
 });
 
-document.querySelector("#divide").addEventListener("click", () => {
-    numInput1 = +document.querySelector(".displayContainer").textContent;
-    operatorInput = document.querySelector("#divide").textContent;
-    document.querySelector(".displayContainer").textContent = null;
+division.addEventListener("click", () => {
+    numInput1 = +display.textContent;
+    operatorInput = division.textContent;
+    display.textContent = null;
 });
 
-document.querySelector("#result").addEventListener("click", () => {
-    numInput2 = +document.querySelector(".displayContainer").textContent;
-    document.querySelector(".displayContainer").textContent = operate(numInput1, numInput2, operatorInput); 
+result.addEventListener("click", () => {
+    numInput2 = +display.textContent;
+    display.textContent = operate(numInput1, numInput2, operatorInput);
+    numInput1 = +display.textContent;
 });
 
-document.querySelector("#clear").addEventListener("click", () => {
-    document.querySelector(".displayContainer").textContent = "0"
+clear.addEventListener("click", () => {
+    display.textContent = "0"
 });
 
 function operate(num1, num2, operator) {
