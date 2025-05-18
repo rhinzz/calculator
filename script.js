@@ -16,18 +16,19 @@ const clear = document.querySelector("#clear");
 buttons.forEach(button => {
     button.addEventListener("click", e => {
         let value = e.target.value;
+
         if (display.textContent === "0") {
             display.textContent = value;
         } else {
             display.textContent += value;
-          }
+        }
     })
 });
 
 sum.addEventListener("click", () => {
     numInput1 = +display.textContent;
     operatorInput = sum.textContent;
-    display.textContent = null; 
+    display.textContent = null;
 });
 
 minus.addEventListener("click", () => {
@@ -50,11 +51,22 @@ division.addEventListener("click", () => {
 
 result.addEventListener("click", () => {
     numInput2 = +display.textContent;
-    display.textContent = operate(numInput1, numInput2, operatorInput);
+    if (operatorInput == "/") {
+        if (numInput1 == "0" || numInput2 == "0") {
+            display.textContent = "NOPE";
+        } else {
+            display.textContent = operate(numInput1, numInput2, operatorInput).toFixed(2);
+        }
+    } else {
+        display.textContent = operate(numInput1, numInput2, operatorInput);
+    }
     numInput1 = +display.textContent;
 });
 
 clear.addEventListener("click", () => {
+    numInput1 = null;
+    numInput2 = null;
+    operatorInput = null;
     display.textContent = "0"
 });
 
