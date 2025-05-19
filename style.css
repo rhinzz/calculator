@@ -19,6 +19,7 @@ body {
 
 .displayContainer{
     height: 1.5rem;
+    text-align: right;
 }
 
 .buttonRow {

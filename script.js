@@ -17,6 +17,12 @@ buttons.forEach(button => {
     button.addEventListener("click", e => {
         let value = e.target.value;
 
+        if (display.textContent.includes(".")) {
+            document.getElementById("dot").disabled = true;
+        } else {
+            document.getElementById("dot").disabled = false;
+        }
+
         if (display.textContent === "0") {
             display.textContent = value;
         } else {
@@ -54,13 +60,16 @@ result.addEventListener("click", () => {
     if (operatorInput == "/") {
         if (numInput1 == "0" || numInput2 == "0") {
             display.textContent = "NOPE";
+        } else if (operate(numInput1, numInput2, operatorInput).toString().length > 8){
+            display.textContent = operate(numInput1, numInput2, operatorInput);
+            display.textContent = display.textContent.substring(0, 8);
         } else {
-            display.textContent = operate(numInput1, numInput2, operatorInput).toFixed(2);
+            display.textContent = operate(numInput1, numInput2, operatorInput);
         }
     } else {
         display.textContent = operate(numInput1, numInput2, operatorInput);
     }
-    numInput1 = +display.textContent;
+    
 });
 
 clear.addEventListener("click", () => {
