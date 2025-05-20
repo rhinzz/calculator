@@ -34,5 +34,5 @@ body {
 }
 
 .buttonRow button#clear {
-    width: 100%;
+    width: fit-content;
 }

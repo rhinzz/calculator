@@ -1,7 +1,8 @@
 // Global Variable
-let numInput1;
-let numInput2;
-let operatorInput;
+let numInput1 = null;
+let numInput2 = null;
+let operatorInput = null;
+
 
 // Selector Variable
 const buttons = document.querySelectorAll(".buttonRow button");
@@ -31,29 +32,19 @@ buttons.forEach(button => {
     })
 });
 
-sum.addEventListener("click", () => {
-    numInput1 = +display.textContent;
-    operatorInput = sum.textContent;
-    display.textContent = null;
-});
+function operator(action) {
+    action.addEventListener("click", () => {
+        numInput1 = +display.textContent;
+        operatorInput = action.textContent;
+        display.textContent = null;
+    })
+};
 
-minus.addEventListener("click", () => {
-    numInput1 = +display.textContent;
-    operatorInput = minus.textContent;
-    display.textContent = null;
-});
+sum.addEventListener("click", operator(sum));
+minus.addEventListener("click", operator(minus));
+product.addEventListener("click", operator(product));
+division.addEventListener("click", operator(division));
 
-product.addEventListener("click", () => {
-    numInput1 = +display.textContent;
-    operatorInput = product.textContent;
-    display.textContent = null;
-});
-
-division.addEventListener("click", () => {
-    numInput1 = +display.textContent;
-    operatorInput = division.textContent;
-    display.textContent = null;
-});
 
 result.addEventListener("click", () => {
     numInput2 = +display.textContent;
@@ -90,7 +81,7 @@ function operate(num1, num2, operator) {
         case "/":
             return divide(num1, num2);
         default:
-            return "Invalid Operator!";
+            return 0;
     }
 }
 
