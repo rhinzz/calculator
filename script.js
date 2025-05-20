@@ -2,10 +2,11 @@
 let numInput1 = null;
 let numInput2 = null;
 let operatorInput = null;
+let resultShown = false;
 
 
 // Selector Variable
-const buttons = document.querySelectorAll(".buttonRow button");
+const buttons = document.querySelectorAll(".buttonRow button.number");
 const display = document.querySelector(".displayContainer");
 const sum = document.querySelector("#sum");
 const minus = document.querySelector("#subtract");
@@ -24,8 +25,9 @@ buttons.forEach(button => {
             document.getElementById("dot").disabled = false;
         }
 
-        if (display.textContent === "0") {
+        if (display.textContent === "0" || resultShown) {
             display.textContent = value;
+            resultShown = false;
         } else {
             display.textContent += value;
         }
@@ -48,19 +50,21 @@ division.addEventListener("click", operator(division));
 
 result.addEventListener("click", () => {
     numInput2 = +display.textContent;
-    if (operatorInput == "/") {
-        if (numInput1 == "0" || numInput2 == "0") {
-            display.textContent = "NOPE";
-        } else if (operate(numInput1, numInput2, operatorInput).toString().length > 8){
-            display.textContent = operate(numInput1, numInput2, operatorInput);
-            display.textContent = display.textContent.substring(0, 8);
+    if (numInput2 != null) {
+        if (operatorInput == "/" || operatorInput == "*") {
+            if (numInput1 == "0" || numInput2 == "0") {
+                display.textContent = "ERROR";
+            } else if (operate(numInput1, numInput2, operatorInput).toString().length > 8) {
+                display.textContent = operate(numInput1, numInput2, operatorInput);
+                display.textContent = display.textContent.substring(0, 8);
+            } else {
+                display.textContent = operate(numInput1, numInput2, operatorInput);
+            }
         } else {
             display.textContent = operate(numInput1, numInput2, operatorInput);
         }
-    } else {
-        display.textContent = operate(numInput1, numInput2, operatorInput);
     }
-    
+    resultShown = true;
 });
 
 clear.addEventListener("click", () => {
