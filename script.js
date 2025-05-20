@@ -27,6 +27,7 @@ buttons.forEach(button => {
 
         if (display.textContent === "0" || resultShown) {
             display.textContent = value;
+            document.getElementById("dot").disabled = false;
             resultShown = false;
         } else {
             display.textContent += value;
@@ -50,19 +51,17 @@ division.addEventListener("click", operator(division));
 
 result.addEventListener("click", () => {
     numInput2 = +display.textContent;
-    if (numInput2 != null) {
-        if (operatorInput == "/" || operatorInput == "*") {
-            if (numInput1 == "0" || numInput2 == "0") {
-                display.textContent = "ERROR";
-            } else if (operate(numInput1, numInput2, operatorInput).toString().length > 8) {
-                display.textContent = operate(numInput1, numInput2, operatorInput);
-                display.textContent = display.textContent.substring(0, 8);
-            } else {
-                display.textContent = operate(numInput1, numInput2, operatorInput);
-            }
+    if (operatorInput == "/" || operatorInput == "*") {
+        if (numInput1 == "0" || numInput2 == "0") {
+            display.textContent = "ERROR";
+        } else if (operate(numInput1, numInput2, operatorInput).toString().length > 8) {
+            display.textContent = operate(numInput1, numInput2, operatorInput);
+            display.textContent = display.textContent.substring(0, 8);
         } else {
             display.textContent = operate(numInput1, numInput2, operatorInput);
         }
+    } else {
+        display.textContent = operate(numInput1, numInput2, operatorInput);
     }
     resultShown = true;
 });
@@ -71,6 +70,7 @@ clear.addEventListener("click", () => {
     numInput1 = null;
     numInput2 = null;
     operatorInput = null;
+    document.getElementById("dot").disabled = false;
     display.textContent = "0"
 });
 
@@ -85,7 +85,7 @@ function operate(num1, num2, operator) {
         case "/":
             return divide(num1, num2);
         default:
-            return 0;
+            return 'Invalid Operator!';
     }
 }
 
