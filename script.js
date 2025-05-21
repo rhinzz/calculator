@@ -3,6 +3,7 @@ let numInput1 = null;
 let numInput2 = null;
 let operatorInput = null;
 let resultShown = false;
+let operatorPressed = false;
 
 
 // Selector Variable
@@ -37,9 +38,12 @@ buttons.forEach(button => {
 
 function operator(action) {
     action.addEventListener("click", () => {
-        numInput1 = +display.textContent;
+        if (!operatorPressed) {
+            numInput1 = +display.textContent;
+            display.textContent = null;
+        }
         operatorInput = action.value;
-        display.textContent = null;
+        operatorPressed = true;
     })
 };
 
@@ -50,6 +54,7 @@ division.addEventListener("click", operator(division));
 
 
 result.addEventListener("click", () => {
+    if (!operatorInput || display.textContent === null) return;
     numInput2 = +display.textContent;
     if (operatorInput == "/" || operatorInput == "*") {
         if (numInput1 == "0" || numInput2 == "0") {
@@ -64,12 +69,14 @@ result.addEventListener("click", () => {
         display.textContent = operate(numInput1, numInput2, operatorInput);
     }
     resultShown = true;
+    operatorPressed = false;
 });
 
 clear.addEventListener("click", () => {
     numInput1 = null;
     numInput2 = null;
     operatorInput = null;
+    operatorPressed = false;
     document.getElementById("dot").disabled = false;
     display.textContent = "0"
 });
