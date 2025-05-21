@@ -38,7 +38,7 @@ buttons.forEach(button => {
 function operator(action) {
     action.addEventListener("click", () => {
         numInput1 = +display.textContent;
-        operatorInput = action.textContent;
+        operatorInput = action.value;
         display.textContent = null;
     })
 };
@@ -85,7 +85,7 @@ function operate(num1, num2, operator) {
         case "/":
             return divide(num1, num2);
         default:
-            return 'Invalid Operator!';
+            return 'ERROR';
     }
 }
 
