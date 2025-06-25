@@ -5,10 +5,10 @@ let operatorInput = null;
 let resultShown = false;
 let operatorPressed = false;
 
-
 // Selector Variable
 const buttons = document.querySelectorAll(".buttonRow button.number");
 const display = document.querySelector(".displayContainer");
+const secondaryDisplay = document.querySelector(".secondaryDisplayContainer");
 const sum = document.querySelector("#sum");
 const minus = document.querySelector("#subtract");
 const product = document.querySelector("#multiply");
@@ -38,36 +38,33 @@ buttons.forEach(button => {
 
 function operator(action) {
     action.addEventListener("click", () => {
-        if (!operatorPressed) {
+        if (operatorPressed) {
+            numInput2 = +display.textContent;
+            numInput1 = operate(numInput1, numInput2, operatorInput);
+            display.textContent = null; 
+            secondaryDisplay.textContent = `${numInput1} ${action.textContent}`;
+        } else {
             numInput1 = +display.textContent;
             display.textContent = null;
+            secondaryDisplay.textContent = `${numInput1} ${action.textContent}`;
+            operatorPressed = true;
         }
         operatorInput = action.value;
         operatorPressed = true;
-    })
-};
+    });
+}
 
-sum.addEventListener("click", operator(sum));
-minus.addEventListener("click", operator(minus));
-product.addEventListener("click", operator(product));
-division.addEventListener("click", operator(division));
+operator(sum);
+operator(minus);
+operator(product);
+operator(division);
 
 
 result.addEventListener("click", () => {
     if (!operatorInput || display.textContent === null) return;
     numInput2 = +display.textContent;
-    if (operatorInput == "/" || operatorInput == "*") {
-        if (numInput1 == "0" || numInput2 == "0") {
-            display.textContent = "ERROR";
-        } else if (operate(numInput1, numInput2, operatorInput).toString().length > 8) {
-            display.textContent = operate(numInput1, numInput2, operatorInput);
-            display.textContent = display.textContent.substring(0, 8);
-        } else {
-            display.textContent = operate(numInput1, numInput2, operatorInput);
-        }
-    } else {
-        display.textContent = operate(numInput1, numInput2, operatorInput);
-    }
+    display.textContent = operate(numInput1, numInput2, operatorInput);
+    secondaryDisplay.textContent += ` ${numInput2} =`
     resultShown = true;
     operatorPressed = false;
 });
@@ -78,6 +75,7 @@ clear.addEventListener("click", () => {
     operatorInput = null;
     operatorPressed = false;
     document.getElementById("dot").disabled = false;
+    secondaryDisplay.textContent = "";
     display.textContent = "0"
 });
 
@@ -109,7 +107,11 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
-    return num1 / num2;
+    return roundToSeven(num1 / num2);
+}
+
+function roundToSeven(num) {
+    return +(Math.round(num + "e+7")  + "e-7");
 }
 
 // console.log(operate(3, 4, "+"));
